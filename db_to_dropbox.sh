@@ -61,12 +61,18 @@ for argument in $options
       --host) DB_HOST=${arguments[index]};;
       -n) DB_NAME=${arguments[index]};;
       --name) DB_NAME=${arguments[index]};;
+      -u) DB_USER=${arguments[index]};;
+      --user) DB_USER=${arguments[index]};;
       -p) DB_PASSWORD=${arguments[index]};;
       --password) DB_PASSWORD=${arguments[index]};;
       -d) DROPBOX=${arguments[index]};;
       --dropbox) DROPBOX=${arguments[index]};;
     esac
   done
+
+if [ "$DB_USER" = "" ]; then
+    echo "SHOW USAGE!!!"
+fi
 
 echo "Version: "$VERSION
 echo "CNF Location: "$CNF
