@@ -30,12 +30,11 @@ usage() {
     -u, --user <string>      Set database username
     -p, --password <string>  Set database password
     -d, --dropbox            Not sure what I'll need for dropbox auth yet
+    -v, --version            Show version number
+    --help                   Show this usage menu
 
 EOF
 }
-
-# call usage() function if filename not supplied
-[[ $# -eq 0 ]] && usage
 
 # A string with command options
 options=$@
@@ -67,17 +66,23 @@ for argument in $options
       --password) DB_PASSWORD=${arguments[index]};;
       -d) DROPBOX=${arguments[index]};;
       --dropbox) DROPBOX=${arguments[index]};;
+      -v) echo "Version: "$VERSION; exit;;
+      --version) echo "Version: "$VERSION; exit;;
+      --help) usage; exit;;
     esac
   done
 
-if [ "$DB_USER" = "" ]; then
-    echo "SHOW USAGE!!!"
+if [ "$CNF" != "" ]; then
+    echo "CNF Location: "$CNF
+    echo
+    echo "Dropbox: "$DROPBOX
+elif [ "$DB_HOST" = "" ] ||  [ "$DB_NAME" = "" ] || [ "$DB_USER" = "" ] || [ "$DB_PASSWORD" = "" ]; then
+    usage
+else
+    echo "DB Host: "$DB_HOST
+    echo "DB Name: "$DB_NAME
+    echo "DB User: "$DB_USER
+    echo "DB Password: "$DB_PASSWORD
+    echo
+    echo "Dropbox: "$DROPBOX
 fi
-
-echo "Version: "$VERSION
-echo "CNF Location: "$CNF
-echo "DB Host: "$DB_HOST
-echo "DB Name: "$DB_NAME
-echo "DB User: "$DB_USER
-echo "DB Password: "$DB_PASSWORD
-echo "Dropbox: "$DROPBOX
