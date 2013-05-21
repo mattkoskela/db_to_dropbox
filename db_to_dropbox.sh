@@ -72,10 +72,14 @@ for argument in $options
     esac
   done
 
-if [ "$CNF" != "" ]; then
+if [ "$CNF" != "" ] && [ "$DB_NAME" != "" ]; then
     echo "CNF Location: "$CNF
+    echo "DB Name: " $DB_NAME
     echo
     echo "Dropbox: "$DROPBOX
+    FILENAME=$DB_NAME"_"$(date +"%Y-%m-%d")".sql"
+    mysqldump --defaults-file=$CNF $DB_NAME > $FILENAME
+
 elif [ "$DB_HOST" = "" ] ||  [ "$DB_NAME" = "" ] || [ "$DB_USER" = "" ] || [ "$DB_PASSWORD" = "" ]; then
     usage
 else
@@ -85,4 +89,7 @@ else
     echo "DB Password: "$DB_PASSWORD
     echo
     echo "Dropbox: "$DROPBOX
+
+    FILENAME=$DB_NAME"_"$(date +"%Y-%m-%d")".sql"
+    mysqldump –u $DB_USER –p$DB_PASSWORD -h $DB_HOST $DB_NAME > $FILENAME
 fi
