@@ -91,5 +91,6 @@ else
     echo "Dropbox: "$DROPBOX
 
     FILENAME=$DB_NAME"_"$(date +"%Y-%m-%d")".sql"
-    mysqldump –u $DB_USER –p$DB_PASSWORD -h $DB_HOST $DB_NAME > $FILENAME
+
+    mysqldump --user=$DB_USER -p$DB_PASSWORD --host=$DB_HOST $DB_NAME > $FILENAME
 fi
