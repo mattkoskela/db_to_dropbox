@@ -92,5 +92,6 @@ else
 
     FILENAME=$DB_NAME"_"$(date +"%Y-%m-%d")".sql"
 
-    mysqldump --user=$DB_USER -p$DB_PASSWORD --host=$DB_HOST $DB_NAME > $FILENAME
+    mysqldump --user=$DB_USER --password=$DB_PASSWORD --host=$DB_HOST $DB_NAME > $FILENAME
+
 fi
